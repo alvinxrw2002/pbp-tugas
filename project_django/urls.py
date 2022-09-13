@@ -24,6 +24,5 @@ urlpatterns = [
 # TODO: Implement Routings Here
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('example_app.urls')),
-    path('katalog/', include('katalog.urls')),
+    path('', include('katalog.urls')),
 ]
