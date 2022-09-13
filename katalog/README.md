@@ -1,6 +1,6 @@
 **Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;**
 
-![Alur web berbasis Django](https://drive.google.com/file/d/1-YKxdiQtY_usLie4bN0uvV9iHItMhZXZ/view?usp=sharing)
+![Alur web berbasis Django](https://ibb.co/dcnt1Cg)
 Dalam bagan tersebut, request akan muncul ketika user mengklik link aplikasinya. Setelah itu, URL (urls.py dalam project ini) akan mengarahkannya ke view (views.py). Views.py kemudian akan merender template katalog.html dengan data yang ada pada variabel context, yaitu nama, id, dan barang-barang katalog. Model data (class/object) barang-barang katalog tersebut ada pada models.py, dan instance-instancenya terdapat pada database (file json di folder fixtures).
 
 
