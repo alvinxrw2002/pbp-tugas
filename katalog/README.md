@@ -1,3 +1,5 @@
+Link aplikasi: http://pbp-tugas.herokuapp.com/
+
 **Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;**
 
 ![Alur web berbasis Django](BaganDjango.jpg)
