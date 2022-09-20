@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 1,
+        "fields": {
+            "watched": "V",
+            "title": "Minions: The Rise of Gru",
+            "rating": 4.6,
+            "release_date": "28 June 2022",
+            "review": "“The Rise of Gru” isn’t a complete waste; there’s the occasional inspired sight gag, particularly the prop work in the martial arts training sequence, and Arkin seems to have a good time (it’s surprising he hasn’t done more voice work)."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 2,
+        "fields": {
+            "watched": "V",
+            "title": "Scream 5",
+            "rating": 4.3,
+            "release_date": "12 January 2022",
+            "review": "All that's lacking is a plot, or a heroine, capable of making us squeal."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 3,
+        "fields": {
+            "watched": "V",
+            "title": "Thor: Love and Thunder",
+            "rating": 4.4,
+            "release_date": "6 July 2022",
+            "review": "What makes the film durable and winning is the rare blend of comedy and serious drama weight, which is pushed through by a game cast."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 4,
+        "fields": {
+            "watched": "V",
+            "title": "The Batman",
+            "rating": 5.0,
+            "release_date": "2 March 2022",
+            "review": "What this film does achieve, however, is telling a solid new Batman story, one with some pretty compelling twists and a strong point-of-view on who, exactly, the Caped Crusader is. By default, that makes it one of the better Batman movies ever made."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 5,
+        "fields": {
+            "watched": "V",
+            "title": "Turnig Red",
+            "rating": 4.9,
+            "release_date": "1 March 2022",
+            "review": "a funny, compassionate and intelligent animated coming-of-age film with art that communicates the beauty of Chinese culture… addresses the myriad, complex, feelings and sensations of puberty and adolescence with honesty and sensitivity to nuance"
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 6,
+        "fields": {
+            "watched": "V",
+            "title": "Doctor Strange in the Multiverse of Madness",
+            "rating": 4.5,
+            "release_date": "5 May 2022",
+            "review": "“Doctor Strange in the Multiverse of Madness” eliminates the playful idiosyncrasy in the interest of formula—of Marvel’s self-perpetuating business. The new film isn’t merely branded entertainment; it’s branding as entertainment."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 7,
+        "fields": {
+            "watched": "V",
+            "title": "Jurassic World Dominion",
+            "rating": 3.1,
+            "release_date": "8 June 2022",
+            "review": "While there’s never really a sense of true danger for our heroes, we get just enough of the range of CGI dinosaurs and their weird traits to keep the film entertaining."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 8,
+        "fields": {
+            "watched": "V",
+            "title": "The Adam Project",
+            "rating": 4.7,
+            "release_date": "28 February 2022",
+            "review": "I enjoyed The Adam Project, its past, present, and future permutations an exciting joyride fit for the whole family."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 9,
+        "fields": {
+            "watched": "V",
+            "title": "Uncharted",
+            "rating": 4.5,
+            "release_date": "16 February 2022",
+            "review": "It’s all mildly amusing, mildly exciting and entirely routine."
+        }
+    },
+    {
+        "model": "mywatchlist.watchlist",
+        "pk": 10,
+        "fields": {
+            "watched": "V",
+            "title": "Sonic the Hedgehog 2",
+            "rating": 4.8,
+            "release_date": "8 April 2022",
+            "review": "a globe-trotting adventure that touches on fun ideas for viewers of all ages, even if the film is too long and jarring to stick the landing."
+        }
+    }
+]
