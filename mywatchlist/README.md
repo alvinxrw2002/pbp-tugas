@@ -20,8 +20,8 @@ markup: - Menginisiasi aplikasi mywatchlist dengan python manage.py startapp myw
         - Commit ke GitHub
 
 **Akses ketiga URL menggunakan Postman**
-1. ![HTML](Postman HTML.png)
+[HTML](Postman HTML.png)
 
-2. ![XML](Postman XML.png)
+[XML](Postman XML.png)
 
-3. ![JSON](Postman JSON.png)
+![JSON](Postman JSON.png)
