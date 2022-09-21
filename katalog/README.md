@@ -1,4 +1,4 @@
-Link aplikasi: http://pbp-tugas.herokuapp.com/
+Link aplikasi: http://pbp-tugas.herokuapp.com/katalog/
 
 **Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html;**
 
@@ -20,7 +20,7 @@ Virtual environment diperlukan untuk mencegah perbedaan versi package-package ya
 
 2. Mengarahkan url ke arah aplikasi katalog dengan membuat path pada urls.py
 
- 
+    
 
 3. Menyesuaikan nama variabel di base html dan views.py untuk nama, id, serta melakukan iterasi untuk setiap barang yang ada di tabel views.py untuk ditampilkan attribute-nya sehingga terbentuk tabel pada html.
 
