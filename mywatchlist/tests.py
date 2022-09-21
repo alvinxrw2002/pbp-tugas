@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 
-# Create your tests here.
+# Test if the reponse of the HTML, XML, and JSON path equals to 200
 class HTMLTestCase(TestCase):
     def test_html_response(self):
         client = Client()
