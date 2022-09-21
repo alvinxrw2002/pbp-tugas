@@ -7,17 +7,17 @@ JSON mampu untuk menyimpan data secara efisien karena menggunakan dictionary seb
 Agar dapat memberikan akses pada pengguna lain untuk melihat data yang ada dalam aplikasi yang telah dibuat oleh developer.
 
 **Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.**
-markup: - Menginisiasi aplikasi mywatchlist dengan python manage.py startapp mywatchlist
-        - Membuat model data-data watchlist pada models.py
-        - Menambahkan database JSON yang berisi 10 data-data film
-        - Membuat fungsi yang me-render HTML serta men-deliver data-data tersebut dalam bentuk JSON dan XML
-        - Menyusun template HTML untuk menampilkan data-data tadi
-        - Menambahkan routing baru ke aplikasi mywatchlist, HTML, XML, dan JSON-nya pada urls.py
-        - Melakukan migrasi dan load data
-        - Menjalankan python manage.py runserver dan membuka localhost:8000 untuk menguji aplikasinya
-        - Menambahkan python manage.py loaddata initial_watchlist_data.json pada PROCFILE agar data-datanya dapat muncul ketika di-deploy ke heroku
-        - Membuat unit test menggunakan client dan cek responnya apakah mengembalikan HTTP 200 OK
-        - Commit ke GitHub
+1. Menginisiasi aplikasi mywatchlist dengan python manage.py startapp mywatchlist
+2. Membuat model data-data watchlist pada models.py
+3. Menambahkan database JSON yang berisi 10 data-data film
+4. Membuat fungsi yang me-render HTML serta men-deliver data-data tersebut dalam bentuk JSON dan XML
+5. Menyusun template HTML untuk menampilkan data-data tadi
+6. Menambahkan routing baru ke aplikasi mywatchlist, HTML, XML, dan JSON-nya pada urls.py
+7. Melakukan migrasi dan load data
+8. Menjalankan python manage.py runserver dan membuka localhost:8000 untuk menguji aplikasinya
+9. Menambahkan python manage.py loaddata initial_watchlist_data.json pada PROCFILE agar data-datanya dapat muncul ketika di-deploy ke heroku
+10. Membuat unit test menggunakan client dan cek responnya apakah mengembalikan HTTP 200 OK
+11. Commit ke GitHub
 
 **Akses ketiga URL menggunakan Postman**
 1. Akses HTML
