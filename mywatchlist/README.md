@@ -21,10 +21,19 @@ Agar dapat memberikan akses pada pengguna lain untuk melihat data yang ada dalam
 
 **Akses ketiga URL menggunakan Postman**
 1. Akses HTML
-![HTML](PostmanHTML.png)
+Localhost
+![HTMLLocalhost](PostmanHTMLLocalhost.png)<br>
+Heroku
+![HTMLHeroku](PostmanXMLLocalhost.png)
 
 2. Akses XML
-![XML](PostmanXML.png)
+Localhost
+![XMLLocalhost](PostmanJSONLocalhost.png)<br>
+Heroku
+![XMLHeroku](PostmanXMLLocalhost.png)
 
 3. Akses JSON
-![JSON](PostmanJSON.png)
+Localhost
+![JSONLocalhost](PostmanXMLLocalhost.png)<br>
+Heroku
+![JSONHeroku](PostmanXMLLocalhost.png)
