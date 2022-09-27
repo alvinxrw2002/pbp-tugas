@@ -1,11 +1,11 @@
-tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist
+tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist<br>
 
-**Apa kegunaan {% csrf_token %} pada elemen <form>? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen <form>?**
-CSRF token digunakan untuk mencegah serangan CSRF, yaitu ketidaksengajaan pengguna ketika mengirimkan request melalui web, seperti saat mengisi form. Dengan adanya token CSRF, server dapat menggunakannya sebagai informasi tambahan untuk memastikan bahwa request tersebut berasal dari pengguna yang terotorisasi atau bukan.
+**Apa kegunaan {% csrf_token %} pada elemen form? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen form?**<br>
+CSRF token digunakan untuk mencegah serangan CSRF, yaitu ketidaksengajaan pengguna ketika mengirimkan request melalui web, seperti saat mengisi form. Dengan adanya token CSRF, server dapat menggunakannya sebagai informasi tambahan untuk memastikan bahwa request tersebut berasal dari pengguna yang terotorisasi atau bukan.<br>
 
-**Apakah kita dapat membuat elemen <form> secara manual (tanpa menggunakan generator seperti {{ form.as_table }})? Jelaskan secara gambaran besar bagaimana cara membuat <form> secara manual.**
+**Apakah kita dapat membuat elemen form secara manual (tanpa menggunakan generator seperti {{ form.as_table }})? Jelaskan secara gambaran besar bagaimana cara membuat form secara manual.**<br>
 Bisa, tetapi harus membuat setiap inputnya dalam format table. Misalnya:
-'''
+```html
     <table>
         <tr>
             <td>Title: </td>
@@ -16,13 +16,14 @@ Bisa, tetapi harus membuat setiap inputnya dalam format table. Misalnya:
             <td>Description: </td>
             <td><input id="description" type="text" name="description" value="{{ description }}"></td>
         </tr>
-    <table>
-'''
+    </table>
+```
+<br>
 
-**Jelaskan proses alur data dari submisi yang dilakukan oleh pengguna melalui HTML form, penyimpanan data pada database, hingga munculnya data yang telah disimpan pada template HTML.**
-Setelah pengguna menekan tombol atau link menuju form, terbentuk request ke path tertentu. Lalu, django akan mencari fungsi mana pada views yang menghandle form tsb. sehingga template HTML-nya dapat ditampilkan. Setelah user mengisi dan submit form, akan terbentuk request-request berupa HTTP request, method, dan argumen yang mengarahkan pada url tertentu. Kemudian, jalankan fungsi yang sesuai pada views untuk mengolah data-data dari form tersebut, meyimpan, lalu menampilkannya pada template HTML.
+**Jelaskan proses alur data dari submisi yang dilakukan oleh pengguna melalui HTML form, penyimpanan data pada database, hingga munculnya data yang telah disimpan pada template HTML.**<br>
+Setelah pengguna menekan tombol atau link menuju form, terbentuk request ke path tertentu. Lalu, django akan mencari fungsi mana pada views yang menghandle form tsb. sehingga template HTML-nya dapat ditampilkan. Setelah user mengisi dan submit form, akan terbentuk request-request berupa HTTP request, method, dan argumen yang mengarahkan pada url tertentu. Kemudian, jalankan fungsi yang sesuai pada views untuk mengolah data-data dari form tersebut, meyimpan, lalu menampilkannya pada template HTML.<br>
 
-**Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.**
+**Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.**<br>
 1. Menginisiasi aplikasi todolist dengan python manage.py startapp mywatchlist dan tambahkan pada settings.py di folder project_django
 
 2. Membuat model Task dan TaskForm untuk membuat task baru
