@@ -31,7 +31,7 @@ Setelah pengguna menekan tombol atau link menuju form, terbentuk request ke path
 3. Menyusun template HTML untuk login, logout, membuat task baru, dan menampilkan todolist.
 
 4. Membuat fungsi-fungsi yang sesuai dengan keperluan pada template HTML tsb:
-    * show_todolist: me-render data-data dengan model Task pada database untuk ditampilkan dalam bentuk tabel
+    * show_todolist: mengambil data-data bermodel Task pada database sesuai dengan user yang sedang login untuk ditampilkan dalam bentuk tabel
     * register: mendaftarkan pengguna baru melalui Form dengan method POST
     * login_user: meng-autentikasi username dan password untuk login ke aplikasi dengan username dan password tsb.
     * logout_user: mengeluarkan pengguna dari aplikasi dan menghapus session serta cookie-nya

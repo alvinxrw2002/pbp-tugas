@@ -11,9 +11,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+# Wajibkan login karena task yang ditampilkan akan disesuaikan berdasarkan usernya
 @login_required(login_url='/todolist/login')
 def show_todolist(request):
+    # Tampilkan task berdasarkan user yang sedang login
     logged_in_user = request.user
     tasks = Task.objects.filter(user = logged_in_user)
     context = {
@@ -37,6 +38,7 @@ def register(request):
 
 def login_user(request):
     if request.method == 'POST':
+        # Autentikasikan username dan password
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -47,33 +49,44 @@ def login_user(request):
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
+
     context = {}
     return render(request, 'login.html', context)
 
+# Tentu saja perlu login terlebih dahulu untuk menjlankan mekanisme logout
+@login_required(login_url='/todolist/login')
 def logout_user(request):
+    # Redirect ke halaman login dan hapus cookie
     logout(request)
     response = HttpResponseRedirect(reverse('todolist:login'))
     response.delete_cookie('last_login')
     return response
 
+# Syaratkan login untuk membuat task baru, karena instance Task memerlukan parameter user
+@login_required(login_url='/todolist/login')
 def create_task(request):
-    # if this is a POST request we need to process the form data
+    # Jika request-nya berbentuk POST, proses data form-nya
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
+        
+        # Membuat instance form dan sesuaikan dengan data request
         form = TaskForm(request.POST)
-        # check whether it's valid:
+
+        # Jika valid, ambil entrynya, kemudian masukan ke variable yang sesuai
         if form.is_valid():
             current_user = request.user
             task_title = form.cleaned_data['judul']
             task_description = form.cleaned_data['deskripsi']
 
+            # Membuat instance task berdasarkan entry pada form, kemudian simpan ke database 
             new_task = Task(user = current_user, title = task_title, description = task_description)
             new_task.save()
 
+            # Kembali ke halaman todolist jika berhasil menambahkan task
             return redirect('todolist:show_todolist')
 
-    # if a GET (or any other method) we'll create a blank form
+    # jika method-nya GET atau yang lainnya, buat form kosong
     else:
         form = TaskForm()
 
+    # Tampilkan form baru
     return render(request, 'taskform.html', {'form': form})
