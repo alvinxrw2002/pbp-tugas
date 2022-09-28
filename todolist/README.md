@@ -1,4 +1,7 @@
 tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist<br>
+informasi akun:
+* username 1: dummy1 || username 2: dummy2 || password (both): dummyfortesting123
+* username admin: admin || pass: admin123
 
 **Apa kegunaan {% csrf_token %} pada elemen form? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen form?**<br>
 CSRF token digunakan untuk mencegah serangan CSRF, yaitu ketidaksengajaan pengguna ketika mengirimkan request melalui web, seperti saat mengisi form. Dengan adanya token CSRF, server dapat menggunakannya sebagai informasi tambahan untuk memastikan bahwa request tersebut berasal dari pengguna yang terotorisasi atau bukan.<br>
