@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<title>Login</title>
+<title>Buat Task</title>
 {% endblock meta %}
 
 {% block content %}
 
-<h1>Create New Task</h1>
-
-<form method="POST" action="">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Tambahkan Task"></td>
-        </tr>
-    </table>
-</form>
-
+<div class="d-flex align-items-center justify-content-center" style="background-color: rgb(12, 140, 245); height: 100vh;">
+    <div style="border: solid black; border-radius: 12px; background-color: rgb(89, 255, 39); padding: 21px;">
+        <h1>Membuat Task Baru</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Tambahkan Task" class="btn btn-outline-primary"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
 {% endblock content %}

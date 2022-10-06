@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -7,3 +8,4 @@ class Task(models.Model):
     date = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=1000000)
+    is_finished = models.BooleanField(default=False)

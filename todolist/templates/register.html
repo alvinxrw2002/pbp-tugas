@@ -6,29 +6,28 @@
 
 {% block content %}
 
-<div class="login">
+<div class="d-flex align-items-center justify-content-center" style="background-color: rgb(22, 51, 237); height: 100vh;">
+    <div style="border: solid black; border-radius: 12px; background-color: aliceblue;">
+        <h1>Formulir Registrasi</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Daftar" class="btn btn-success"></td>
+                </tr>
+            </table>
+        </form>
 
-    <h1>Formulir Registrasi</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td></td>
-                <td><input type="submit" name="submit" value="Daftar" /></td>
-            </tr>
-        </table>
-    </form>
-
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 </div>
 
 {% endblock content %}

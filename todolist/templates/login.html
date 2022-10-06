@@ -6,40 +6,50 @@
 
 {% block content %}
 
-<div class = "login">
-
-    <h1>Login</h1>
-
+<div class="login">
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+        <section class="vh-100" style="background-color: #508bfc;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+                                <h3 class="mb-5">Login untuk melihat Todolist-mu</h3>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" name="username" class="form-control form-control-lg">
+                                    <label class="form-label">Username</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" name="password" class="form-control form-control-lg">
+                                    <label class="form-label" for="typePasswordX-2">Password</label>
+                                </div>
+                                
+                                    {% if messages %}
+                                    <ul>
+                                        {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+
+                                <button class="btn btn-success btn-lg btn-block" type="submit">Login</button>
+
+                                <hr class="my-4">
+                                
+                                Belum mempunyai akun?
+                                <a href="{% url 'todolist:register' %}" class="btn btn-lg btn-block btn-primary">Buat Akun</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </form>
-
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
-
 </div>
 
 {% endblock content %}

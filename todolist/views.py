@@ -1,7 +1,10 @@
+from curses import use_env
 import datetime
+from django.db import models
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from todolist import models
 from todolist.models import Task
 from todolist.forms import TaskForm
 from django.shortcuts import redirect
@@ -36,6 +39,9 @@ def register(request):
     return render(request, 'register.html', context)
 
 def login_user(request):
+    if request.user:
+        logout_user(request)
+
     if request.method == 'POST':
         # Autentikasikan username dan password
         username = request.POST.get('username')
@@ -89,3 +95,18 @@ def create_task(request):
 
     # Tampilkan form baru
     return render(request, 'taskform.html', {'form': form})
+
+@login_required(login_url='/todolist/login')
+def delete_task(request, task_id):
+    task = Task.objects.get(pk = task_id)
+    task.delete()
+    return redirect('todolist:show_todolist')
+
+@login_required(login_url='/todolist/login')
+def update_task_status(request, task_id):
+    task = Task.objects.get(pk = task_id)
+    present_status = task.is_finished
+    updated = not present_status
+    task.is_finished = updated
+    task.save()
+    return redirect('todolist:show_todolist')

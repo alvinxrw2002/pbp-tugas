@@ -1,32 +1,53 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>Todolist</title>
+{% endblock meta %}
+
 {% block content %}
 
-<h1>Assignment 4 PBP/PBD</h1>
+<nav class="navbar" style="background-color: #e3f2fd; border-radius: 10px;">
+  <h2>Selamat datang di todolist-mu, {{user}}</h2>
+  <a href="{% url 'todolist:logout' %}" class="btn btn-danger">Logout</a>
+</nav>
 
-<h3>Current User: {{user}} </h3>
-
-{% if todolist %}
-<table border = "1">
-  <tr>
-    <th>Tanggal Pembuatan</th>
-    <th>Judul</th>
-    <th>Deskripsi</th>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for task in todolist %}
-  <tr>
-    <td>{{task.date}}</td>
-    <td>{{task.title}}</td>
-    <td>{{task.description}}</td>
-  </tr>
-  {% endfor %}
-</table>
-
-{% else %}
-  <h4>Tidak ada task, silakan tambah task baru</h4>
-{% endif %}
-
-<a href="{% url 'todolist:create_task' %}"><button>Tambah Task Baru</button></a>
-<a href="{% url 'todolist:logout' %}"><button>Logout</button></a>
-
+<body style="background-color:rgb(51, 248, 215); border-radius: 12px;">
+  <br>
+  <a href="{% url 'todolist:create_task' %}" class="btn btn-success btn-lg">Tambah Task Baru</a>
+  <div class="container">
+    <br>
+    {% if todolist %}
+    <br>
+    <div class="row">
+      {% for task in todolist %}
+      <div class="col-sm-4">
+        <div id="hvr-sweep-to-right" class="card text-center" style="margin: 15px 0;">
+          <div class="card-header">
+            Status penyelesaian:
+            {% if task.is_finished %}✅
+            {% else %}❌
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <p class="card-text">{{task.description}}</p>
+            <a href="{% url 'todolist:update_task_status' task.id %}" class="btn btn-info btn-sm">Ubah Status</a>
+            <a href="{% url 'todolist:delete_task' task.id %}" class="btn btn-warning btn-sm">Hapus</a>
+          </div>
+          <div class="card-footer text-muted">
+            {{task.date}}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
+      <div>
+        <h6>Tidak ada task, silakan tammbahkan task baru</h6>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</body>
 {% endblock content %}

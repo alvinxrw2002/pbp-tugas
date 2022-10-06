@@ -1,7 +1,5 @@
+# Tugas 4
 tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist<br>
-informasi akun:
-* username 1: dummy1 || username 2: dummy2 || password (both): dummyfortesting123
-* username admin: admin || pass: admin123
 
 **Apa kegunaan {% csrf_token %} pada elemen form? Apa yang terjadi apabila tidak ada potongan kode tersebut pada elemen form?**<br>
 CSRF token digunakan untuk mencegah serangan CSRF, yaitu ketidaksengajaan pengguna ketika mengirimkan request melalui web, seperti saat mengisi form. Dengan adanya token CSRF, server dapat menggunakannya sebagai informasi tambahan untuk memastikan bahwa request tersebut berasal dari pengguna yang terotorisasi atau bukan.<br>
@@ -45,3 +43,36 @@ Setelah pengguna menekan tombol atau link menuju form, terbentuk request ke path
 6. Commit ke GitHub untuk men-deploy di Heroku
 
 7. Daftarkan 2 pengguna dan login untuk menambahkan 3 task pada kedua pengguna tsb.
+
+# Tugas 5
+**Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?**<br>
+* Inline css merupakan styling css yang diberikan kepada suatu elemen html tepat di tag-nya langsung. Pemberian style css dengan cara seperti ini kurang efektif apabila terdapat banyak sekali style yang diberikan karena akan membuat file html menjadi berantakan dan terkesan kurang rapi, tetapi akan lebih bermanfaat jika hanya ingin memberikan satu buah style atau satu buah elemen saja untuk sekadar pengujian, perbaikan, atau melihat perubahan sekilas
+
+* Internal css juga dibuat dalam satu file html. Namun, bukan ditumpuk pada tag spesifiknya, melainkan di tulis secara terpisah di antara tag head. Untuk menargetkan elemen html, bisa dengan menggunakan berbagai selector seperti class dan id. Style ini hanya bisa terjadi pada satu halaman sehingga tidak perlu menunggah beberapa file. Namun, ini menjadi tidak efisien apabila ingin menggunakan css yang sama untuk beberapa halaman.
+
+* Eksternal css menggunakan file .css terpisah untuk memberikan style-nya. Dalam satu file ini, styling apapun dapat ditampilkan ke situsnya secara keseluruhan. File tersebut dihubungkan dengan cara memberikan link rel pada bagian head html-nya. Hal ini dapat membuat file html menjadi lebih rapi karena tidak ada styling css pada tag atau head-nya. Selain itu, satu file .css juga dapat digunakan untuk seluruh file html yang dibuat sehingga lebih efisien. Namun, apabila menggunakan ekternal css, perlu menyelesaikan pemanggilan file css-nya sebelum halaman dapat ditampilkan secara sempurna sehingga memerlukan sedikit lebih banyak waktu.<br>
+
+**Jelaskan tag HTML5 yang kamu ketahui.**<br>
+Beberapa tag html yang paling mendasar yaitu:
+* ```<head>``` untuk membuat informasi tentang dokumen
+* ```<body>```untuk membuat tubuh dari suatu halaman
+* ```<h1 - h6>``` untuk membuat heading
+* ```<p>``` untuk membuat paragraf
+* ```<br>```untuk membuat new line
+<br>
+
+**Jelaskan tipe-tipe CSS selector yang kamu ketahui.**<br>
+* tag selector: memilih elemen berdasarkan tagnya
+* class selector: memlih elemen berdasarkan class yang didefinisikan pada sebuah elemen dengan tanda .
+* ID selector: memilih elemen berdasarkan ID-nya dengan tanda #
+* Attribute selector: memilih elemen berdasarkan attribute-nya, seperti input, dsb
+* Universal selector: memilih semua elemen, biasa digunakan untuk menghilangkan styling css bawaan
+<br>
+
+**Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.**<br>
+1. Menginisiasi bootstrap dengan meletakkan link css dan js-nya pada dalam head base.html
+2. Menggunakan class-class tertentu untuk membuat style sesuai keinginan pada elemen button, div, dsb.
+3. Memberi id selector pada tag tertentu yang hendak diberikan style css tersendiri untuk responsive dan hover
+4. Memberikan styling responsive dan hover sesuai elemen yang telah diberi id selecor sebelumnya
+5. Menambahkan sedikit style lain pada beberapa elemen seperti background, background-color, border-radius, dan lain-lain
+<br>
