@@ -11,76 +11,77 @@
 </nav>
 <br>
 
-<!-- Button trigger modal berupa Add Task -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Add Task
-</button>
-<br><br>
+<body style="background-color:rgb(51, 248, 215); border-radius: 12px;">
+    <!-- Button trigger modal berupa Add Task -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Task
+    </button>
+    <br><br>
 
-<!-- Modal untuk form-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="form-tambah-task" method="POST">
-                    {% csrf_token %}
-                    <label>Judul Task</label>
-                    <input type="text" name="judul"></input>
-                    <br>
-                    <label>Deskripsi Task</label>
-                    <input type="text" name="deskripsi"></input>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="kirim-data" data-bs-dismiss="modal">Simpan</button>
+    <!-- Modal untuk form-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-tambah-task" method="POST">
+                        {% csrf_token %}
+                        <label>Judul Task</label>
+                        <input type="text" name="judul"></input>
+                        <br>
+                        <label>Deskripsi Task</label>
+                        <input type="text" name="deskripsi"></input>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="kirim-data"
+                        data-bs-dismiss="modal">Simpan</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="tampilan-tabel"></div>
+    <div id="tampilan-tabel"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript">
-    // Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh 
-    // data dan menampilannya dalam bentuk tabel
-    function refreshTodolist() {
-        $.ajax({
-            type: "GET",
-            url: '/todolist/json',
-            datatype: "json",
-            success: function (datas) {
-                var tableData = "<table class='table table-striped table-hover' border='4'> <thead class='table-dark'> <tr> <th>Tanggal Pembuatan</th> <th>Judul Task</th> <th>Deskripsi</th> <th>Sudah Selesai?</th> <th>Hapus Task</th> </tr> </thead>"
-                for (var i = 0; i < datas.length; i++) {
-                    var data = datas[i].fields;
-                    var hapusButton = "<th><a class='btn btn-warning btn-sm'>Hapus</a></th>"
-                    tableData += "<tr> <th class='table-primary'>" + data.date + "</th> <th class='table-warning'>" + data.title + "</th> <th class='table-danger'>" + data.description + "</th> <th class='table-info'>" + data.is_finished + "</th>" + hapusButton + "</tr>";
-                }
-                tableData += "</table>";
-                $('#tampilan-tabel').html(tableData);
-            },
-        });;
-    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        // Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh 
+        // data dan menampilannya dalam bentuk tabel
+        function refreshTodolist() {
+            $.ajax({
+                type: "GET",
+                url: '/todolist/json',
+                datatype: "json",
+                success: function (datas) {
+                    var cardView = "<div class='container'><div class='row'>"
+                    for (var i = 0; i < datas.length; i++) {
+                        var data = datas[i].fields;
+                        cardView += "<div class='col-sm-4'><div id='hvr-sweep-to-right' class='card text-center' style='margin: 15px 0;'><div class='card-header'>" + data.is_finished + "</div><div class='card-body'><h5 class='card-title'>" + data.title + "</h5> <p class='card-text'>" + data.description + "</p> <a class='btn btn-info btn-sm'>Ubah Status</a><a class='btn btn-warning btn-sm'>Hapus</a></div><div class='card-footer text-muted'>" + data.date + "</div></div></div>"
+                    }
+                    cardView += "</div></div>";
+                    $('#tampilan-tabel').html(cardView);
+                },
+            });;
+        }
 
-    // Menambahkan task baru ke dalam todolist sesuai dengan data
-    // yang disubmit pada form
-    function addTodolist() {
-        fetch("{% url 'todolist:add' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form-tambah-task'))
-        }).then(refreshTodolist)
-        return false
-    }
+        // Menambahkan task baru ke dalam todolist sesuai dengan data
+        // yang disubmit pada form
+        function addTodolist() {
+            fetch("{% url 'todolist:add' %}", {
+                method: "POST",
+                body: new FormData(document.querySelector('#form-tambah-task'))
+            }).then(refreshTodolist)
+            return false
+        }
 
-    document.getElementById("kirim-data").onclick = addTodolist
+        document.getElementById("kirim-data").onclick = addTodolist
 
-    $(document).ready(function () {
-        refreshTodolist();
-    })
-</script>
-
+        $(document).ready(function () {
+            refreshTodolist();
+        })
+    </script>
+</body>
 {% endblock content %}
