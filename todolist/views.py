@@ -116,6 +116,7 @@ def show_todolist_json(request):
     data = Task.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+@login_required(login_url='/todolist/login')
 def show_todolist_ajax(request):
     # Tampilkan task berdasarkan user yang sedang login
     logged_in_user = request.user
@@ -126,6 +127,7 @@ def show_todolist_ajax(request):
     }
     return render(request, "todolist_ajax.html", context)
 
+@login_required(login_url='/todolist/login')
 def add(request):
     if request.method == 'POST':
         current_user = request.user
