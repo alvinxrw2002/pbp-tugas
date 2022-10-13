@@ -1,4 +1,4 @@
-tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist<br>
+tautan menuju aplikasi Heroku: https://pbp-tugas.herokuapp.com/todolist/ajax<br>
 
 **Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.**<br>
 Syncrhonus programming merupakan program yang alurnya berjalan menurut antriannya. Untuk mengeksekusi suatu program, program sebelumnya harus dijalankan terlebih dahulu. Berbeda dengan synchronus, Asynchronus programming dapat mengeksekusi program secara paralel. Dengan kata lain, program bisa dijalnkan tanpa harus mengikuti antrian.<br>
