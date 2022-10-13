@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+
+<!-- Button trigger modal berupa Add Task -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Task
+</button>
+
+<!-- Modal untuk form-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-tambah-task" method="POST">
+                    {% csrf_token %}
+                    <label>Judul Task</label>
+                    <input type="text" name="judul"></input>
+                    <br>
+                    <label>Deskripsi Task</label>
+                    <input type="text" name="deskripsi"></input>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="kirim-data" data-bs-dismiss="modal">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tampilan-tabel"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    // Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh 
+    // data dan menampilannya dalam bentuk tabel
+    function refreshTodolist() {
+        $.ajax({
+            type: "GET",
+            url: '/todolist/json',
+            datatype: "json",
+            success: function (datas) {
+                var tableData = "<table> <tr> <th>Tanggal Pembuatan</th> <th>Judul Task</th> <th>Deskripsi</th> <th>Sudah Selesai?</th> </tr>"
+                for (var i = 0; i < datas.length; i++) {
+                    var data = datas[i].fields;
+                    tableData += "<tr> <th>" + data.date + "</th> <th>" + data.title + "</th> <th>" + data.description + "</th> <th>" + data.is_finished + "</th> </tr>";
+                }
+                tableData += "</table>";
+                $('#tampilan-tabel').html(tableData);
+            },
+        });;
+    }
+
+    // Menambahkan task baru ke dalam todolist sesuai dengan data
+    // yang disubmit pada form
+    function addTodolist() {
+        fetch("{% url 'todolist:add' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form-tambah-task'))
+        }).then(refreshTodolist)
+        return false
+    }
+
+    document.getElementById("kirim-data").onclick = addTodolist
+
+    $(document).ready(function () {
+        refreshTodolist();
+    })
+</script>
+
+{% endblock content %}

@@ -1,8 +1,9 @@
 from curses import use_env
 import datetime
+from django.core import serializers
 from django.db import models
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from todolist import models
 from todolist.models import Task
@@ -110,3 +111,28 @@ def update_task_status(request, task_id):
     task.is_finished = updated
     task.save()
     return redirect('todolist:show_todolist')
+
+def show_todolist_json(request):
+    data = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_todolist_ajax(request):
+    # Tampilkan task berdasarkan user yang sedang login
+    logged_in_user = request.user
+    tasks = Task.objects.filter(user = logged_in_user)
+    context = {
+        'todolist' : tasks,
+        'user' : logged_in_user
+    }
+    return render(request, "todolist_ajax.html", context)
+
+def add(request):
+    if request.method == 'POST':
+        current_user = request.user
+        task_title = request.POST.get("judul")
+        task_description = request.POST.get("deskripsi")
+
+        new_task = Task(user = current_user, title = task_title, description = task_description)
+        new_task.save()
+        return render(request, 'todolist_ajax.html')
+        
