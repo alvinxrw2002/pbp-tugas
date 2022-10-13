@@ -138,3 +138,8 @@ def add(request):
         new_task.save()
         return render(request, 'todolist_ajax.html')
         
+@login_required(login_url='/todolist/login')
+def delete(request, id):
+    task = Task.objects.get(pk = id)
+    task.delete()
+    return redirect('todolist:show_todolist_ajax')
