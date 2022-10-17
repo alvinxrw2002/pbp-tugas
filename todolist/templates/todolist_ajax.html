@@ -23,61 +23,91 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan task-mu disini</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="form-tambah-task" method="POST">
                         {% csrf_token %}
-                        <label>Judul Task</label>
-                        <input type="text" name="judul"></input>
-                        <br>
-                        <label>Deskripsi Task</label>
-                        <input type="text" name="deskripsi"></input>
+                        <table>
+                            <tr>
+                                <td><label>Judul Task</label></td>
+                                <td><input type="text" name="judul"></input></td>
+                            </tr>
+                            <tr>
+                                <td><label>Deskripsi Task</label></td>
+                                <td><textarea name="deskripsi" rows="4" cols="50"></textarea></td>
+                            </tr>
+                        </table>
+
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="kirim-data"
-                        data-bs-dismiss="modal">Simpan</button>
+                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal" onclick="addTodolist()">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="tampilan-tabel"></div>
+    <div class="container">
+        <div id="tampilan-cards" class='row'>
+            <!-- isinya masuk sini -->
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         // Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh 
-        // data dan menampilannya dalam bentuk tabel
+        // data dan menampilannya dalam bentuk cards
         function refreshTodolist() {
             $.ajax({
                 type: "GET",
                 url: '/todolist/json',
                 datatype: "json",
                 success: function (datas) {
-                    var cardView = "<div class='container'><div class='row'>"
-                    for (var i = 0; i < datas.length; i++) {
-                        var data = datas[i].fields;
-                        cardView += "<div class='col-sm-4'><div id='hvr-sweep-to-right' class='card text-center' style='margin: 15px 0;'><div class='card-header'>" + data.is_finished + "</div><div class='card-body'><h5 class='card-title'>" + data.title + "</h5> <p class='card-text'>" + data.description + "</p> <a class='btn btn-info btn-sm'>Ubah Status</a><a class='btn btn-warning btn-sm'>Hapus</a></div><div class='card-footer text-muted'>" + data.date + "</div></div></div>"
+                    if (datas.length === 0) {
+                        $("#tampilan-cards").append("Tidak ada task, silakan menggabut")
+                        return
                     }
-                    cardView += "</div></div>";
-                    $('#tampilan-tabel').html(cardView);
+                    var cardView = ""
+                    for (var i = 0; i < datas.length; i++) {
+                        var data = datas[i].fields
+                        var idData = datas[i].pk
+                        var statusPenyelesaian = data.is_finished? "✅" : "❌"
+                        cardView += `
+                        <div id="${idData}" class="col-sm-4">
+                            <div id="hvr-sweep-to-right" class="card text-center" style="margin: 15px 0;">
+                                <div class="card-header">
+                                    Status penyelesaian: ${statusPenyelesaian}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${data.title}</h5>
+                                    <p class="card-text">${data.description}</p>
+                                    <a href="/todolist/update/${idData}" class="btn btn-info btn-sm">Ubah Status</a>
+                                    <a href="/todolist/delete/${idData}" class="btn btn-warning btn-sm">Hapus</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    ${data.date}
+                                </div>
+                            </div>
+                        </div>`}
+                    cardView += "</div>"
+                    $('#tampilan-cards').html(cardView)
                 },
             });;
         }
 
         // Menambahkan task baru ke dalam todolist sesuai dengan data
-        // yang disubmit pada form
+        // yang disubmit pada form ke server
         function addTodolist() {
+            var form = document.querySelector('#form-tambah-task')
             fetch("{% url 'todolist:add' %}", {
                 method: "POST",
-                body: new FormData(document.querySelector('#form-tambah-task'))
+                body: new FormData(form)
             }).then(refreshTodolist)
+            form.reset()
             return false
         }
-
-        document.getElementById("kirim-data").onclick = addTodolist
 
         $(document).ready(function () {
             refreshTodolist();

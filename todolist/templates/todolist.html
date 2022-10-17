@@ -31,7 +31,7 @@
           <div class="card-body">
             <h5 class="card-title">{{task.title}}</h5>
             <p class="card-text">{{task.description}}</p>
-            <a href="{% url 'todolist:update_task_status' task.id %}" class="btn btn-info btn-sm">Ubah Status</a>
+            <a id="test" href="{% url 'todolist:update_task_status' task.id %}" class="btn btn-info btn-sm">Ubah Status</a>
             <a href="{% url 'todolist:delete_task' task.id %}" class="btn btn-warning btn-sm">Hapus</a>
           </div>
           <div class="card-footer text-muted">
@@ -50,4 +50,9 @@
     {% endif %}
   </div>
 </body>
+
+<script>
+  var coba = document.getElementById("test")
+  console.log(coba)
+</script>
 {% endblock content %}

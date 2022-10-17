@@ -136,10 +136,18 @@ def add(request):
 
         new_task = Task(user = current_user, title = task_title, description = task_description)
         new_task.save()
-        return render(request, 'todolist_ajax.html')
-        
+
 @login_required(login_url='/todolist/login')
-def delete(request, id):
-    task = Task.objects.get(pk = id)
+def update(request, task_id):
+    task = Task.objects.get(pk = task_id)
+    present_status = task.is_finished
+    updated = not present_status
+    task.is_finished = updated
+    task.save()
+    return redirect('todolist:show_todolist_ajax')
+
+@login_required(login_url='/todolist/login')
+def delete(request, task_id):
+    task = Task.objects.get(pk = task_id)
     task.delete()
     return redirect('todolist:show_todolist_ajax')
