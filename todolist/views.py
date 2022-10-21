@@ -2,7 +2,6 @@ from curses import use_env
 import datetime
 import json
 from django.core import serializers
-from django.db import models
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -118,7 +117,27 @@ def show_todolist_json(request):
     data = Task.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-@login_required(login_url='/todolist/login')
+def login_ajax(request):
+    if request.user:
+        logout_user(request)
+
+    if request.method == 'POST':
+        # Autentikasikan username dan password
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user) # melakukan login terlebih dahulu
+            response = HttpResponseRedirect(reverse("todolist:show_todolist_ajax")) # membuat response
+            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            return response
+        else:
+            messages.info(request, 'Username atau Password salah!')
+
+    context = {}
+    return render(request, 'login.html', context)
+
+@login_required(login_url='/todolist/login-ajax')
 def show_todolist_ajax(request):
     # Tampilkan task berdasarkan user yang sedang login
     logged_in_user = request.user
@@ -129,7 +148,7 @@ def show_todolist_ajax(request):
     }
     return render(request, "todolist_ajax.html", context)
 
-@login_required(login_url='/todolist/login')
+@login_required(login_url='/todolist/login-ajax')
 @csrf_exempt
 def add(request):
     if request.method == 'POST':
@@ -141,14 +160,14 @@ def add(request):
         new_task.save()
         return HttpResponse("success")
 
-@login_required(login_url='/todolist/login')
+@login_required(login_url='/todolist/login-ajax')
 def update(request, task_id):
     task = Task.objects.get(pk = task_id)
     task.is_finished = not task.is_finished
     task.save()
-    return redirect('todolist:show_todolist_ajax')
+    return HttpResponse("success")
 
-@login_required(login_url='/todolist/login')
+@login_required(login_url='/todolist/login-ajax')
 def delete(request, task_id):
     task = Task.objects.get(pk = task_id)
     task.delete()
