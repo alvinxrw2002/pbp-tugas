@@ -1,5 +1,6 @@
 from curses import use_env
 import datetime
+import json
 from django.core import serializers
 from django.db import models
 from django.urls import reverse
@@ -13,6 +14,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 # Wajibkan login karena task yang ditampilkan akan disesuaikan berdasarkan usernya
 @login_required(login_url='/todolist/login')
@@ -128,21 +130,21 @@ def show_todolist_ajax(request):
     return render(request, "todolist_ajax.html", context)
 
 @login_required(login_url='/todolist/login')
+@csrf_exempt
 def add(request):
     if request.method == 'POST':
         current_user = request.user
-        task_title = request.POST.get("judul")
-        task_description = request.POST.get("deskripsi")
+        task_title = request.POST["judul"]
+        task_description = request.POST["deskripsi"]
 
         new_task = Task(user = current_user, title = task_title, description = task_description)
         new_task.save()
+        return HttpResponse("success")
 
 @login_required(login_url='/todolist/login')
 def update(request, task_id):
     task = Task.objects.get(pk = task_id)
-    present_status = task.is_finished
-    updated = not present_status
-    task.is_finished = updated
+    task.is_finished = not task.is_finished
     task.save()
     return redirect('todolist:show_todolist_ajax')
 
@@ -150,4 +152,4 @@ def update(request, task_id):
 def delete(request, task_id):
     task = Task.objects.get(pk = task_id)
     task.delete()
-    return redirect('todolist:show_todolist_ajax')
+    return HttpResponse("success")

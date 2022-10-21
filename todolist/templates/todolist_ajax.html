@@ -32,18 +32,18 @@
                         <table>
                             <tr>
                                 <td><label>Judul Task</label></td>
-                                <td><input type="text" name="judul"></input></td>
+                                <td><input id="judul-task" type="text" name="judul"></input></td>
                             </tr>
                             <tr>
                                 <td><label>Deskripsi Task</label></td>
-                                <td><textarea name="deskripsi" rows="4" cols="50"></textarea></td>
+                                <td><textarea id="deskripsi-task" name="deskripsi" rows="4" cols="50"></textarea></td>
                             </tr>
                         </table>
-
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal" onclick="addTodolist()">Simpan</button>
+                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal"
+                        onclick="tambahinData()">Simpan</button>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     for (var i = 0; i < datas.length; i++) {
                         var data = datas[i].fields
                         var idData = datas[i].pk
-                        var statusPenyelesaian = data.is_finished? "✅" : "❌"
+                        var statusPenyelesaian = data.is_finished ? "✅" : "❌"
                         cardView += `
                         <div id="${idData}" class="col-sm-4">
                             <div id="hvr-sweep-to-right" class="card text-center" style="margin: 15px 0;">
@@ -83,8 +83,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${data.title}</h5>
                                     <p class="card-text">${data.description}</p>
-                                    <a href="/todolist/update/${idData}" class="btn btn-info btn-sm">Ubah Status</a>
-                                    <a href="/todolist/delete/${idData}" class="btn btn-warning btn-sm">Hapus</a>
+                                    <button class="btn btn-info btn-sm" onclick="ubahStatus(${idData})">Ubah Status</button>
+                                    <button class="btn btn-warning btn-sm" onclick="hapusData(${idData})">Hapus</button>
                                 </div>
                                 <div class="card-footer text-muted">
                                     ${data.date}
@@ -97,16 +97,85 @@
             });;
         }
 
-        // Menambahkan task baru ke dalam todolist sesuai dengan data
-        // yang disubmit pada form ke server
-        function addTodolist() {
-            var form = document.querySelector('#form-tambah-task')
-            fetch("{% url 'todolist:add' %}", {
-                method: "POST",
-                body: new FormData(form)
-            }).then(refreshTodolist)
-            form.reset()
-            return false
+        // Menambahkan task baru ke server
+        function tambahinData() {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'todolist:add' %}",
+                data: {
+                    'judul': $("#judul-task").val(),
+                    'deskripsi': $("#deskripsi-task").val(),
+                },
+                success: function (result) {
+                    alert(result)
+                    tambahinHTML();
+                }
+            });
+        }
+
+        // Menampilkan seluruh data ynag sudah ditambahkan dengan
+        // data baru ke pengguna
+        function tambahinHTML() {
+            $.ajax({
+                type: "GET",
+                url: '/todolist/json',
+                datatype: "json",
+                success: function (all) {
+                    var datas = all[all.length - 1];
+                    var data = datas.fields
+                    var idData = datas.pk
+                    var statusPenyelesaian = data.is_finished ? "✅" : "❌"
+                    var cardView = `
+                        <div id="${idData}" class="col-sm-4">
+                            <div id="hvr-sweep-to-right" class="card text-center" style="margin: 15px 0;">
+                                <div class="card-header">
+                                    Status penyelesaian: ${statusPenyelesaian}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${data.title}</h5>
+                                    <p class="card-text">${data.description}</p>
+                                    <button class="btn btn-info btn-sm" onclick="ubahStatus(${idData})">Ubah Status</button>
+                                    <button class="btn btn-warning btn-sm" onclick="hapusData(${idData})">Hapus</button>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    ${data.date}
+                                </div>
+                            </div>
+                        </div>`
+                    $('#tampilan-cards').append(cardView)
+                },
+            });;
+        }
+
+        function ubahStatus(idData) {
+            $.ajax({
+                url: `/todolist/update/${idData}`,
+                success: function (result) {
+                    alert(result);
+                    var targetElement = document.getElementById(`${idData}`).firstElementChild.firstElementChild;
+                    var status = targetElement.innerHTML;
+                    var penyelesaian = ""
+                    for (var i = 0; i < status.length; i++) {
+                        if (i === 58) {
+                            penyelesaian += status.charAt(i) === "✅" ? "❌" : "✅";
+                            continue;
+                        }
+                        penyelesaian += status.charAt(i);
+                    }
+                    targetElement.innerHTML = penyelesaian;
+                }
+            });
+        }
+        
+        // Hapus data di server dan tampilan pengguna
+        function hapusData(idData) {
+            $.ajax({
+                url: `/todolist/delete/${idData}`,
+                success: function (result) {
+                    alert(result);
+                    $(`#${idData}`).remove()
+                }
+            });
         }
 
         $(document).ready(function () {
