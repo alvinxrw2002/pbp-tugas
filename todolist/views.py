@@ -1,14 +1,10 @@
-from curses import use_env
 import datetime
-import json
 from django.core import serializers
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from todolist import models
+from django.shortcuts import render, redirect
 from todolist.models import Task
 from todolist.forms import TaskForm
-from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout

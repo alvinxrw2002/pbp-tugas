@@ -1,4 +1,4 @@
-// Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh 
+// Fungsi untuk me-refresh todolist melalui AJAX GET terhadap seluruh
 // data dan menampilannya dalam bentuk cards
 function refreshTodolist() {
     $.ajax({
@@ -109,7 +109,7 @@ function hapusData(idData) {
         }
     });
 }
-
+    
 $(document).ready(function () {
     refreshTodolist();
 })
